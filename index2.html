@@ -59,7 +59,7 @@
 		return (bluetoothDeviceDetected ? Promise.resolve() : getDeviceInfo())
 		.then(connectGATT)
 		.then( _ => {
-			console.log('Reading value');
+			console.log('Reading value',gattCharacteristic);
 			return gattCharacteristic.readValue();
 		})
 		.catch(error => {
@@ -77,11 +77,11 @@
 		return bluetoothDeviceDetected.gatt.connect()
 		.then(server => {
 			//console.log("test",server.getPrimaryServices())
-			console.log('Gettinfg GATT service...',server, server.getPrimaryService(bleService));
+			console.log('Getting GATT service...',server, server.getPrimaryService(bleService));
 			return server.getPrimaryService(bleService)
 		})
 		.then(service => {
-			console.log('GEtting GATT characteristic',service);
+			console.log('Getting GATT characteristic',service);
 			return service.getCharacteristic(bleCharacteristic)
 		})
 		.then(characteristic => {
@@ -108,5 +108,21 @@
 			
 		})
 	}
+	function handleChangedValue(event) {
+    let value = event.target.value//event.target.value.getUint8(0)
+ 
+    
+    var now = new Date()
+    console.log('> ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + ' UV Index is ' + decodeStriong(value))
+  }
+
+  function decodeStriong(value) {
+  	res = ""
+  	let tmp =new Int8Array(value.buffer);
+    for (var i = 0; i < tmp.length; i++) {
+    	res = res + String.fromCharCode(tmp[i]);
+    }
+    return res
+  }
 
 </script>
