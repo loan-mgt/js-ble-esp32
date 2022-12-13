@@ -22,7 +22,7 @@
 
 		console.log("Requestion BLE device info...")
 		navigator.bluetooth.requestDevice(options).then(device => {
-			console.log('name '+device.name);
+			console.log('name '+device.name, device);
 		}).catch(error => {
 			console.log('Request device error: '+error);
 		})

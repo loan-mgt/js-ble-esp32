@@ -1,0 +1,112 @@
+
+	<button id="device">Connect to Esp</button>
+	<button id="start">Start</button>
+	<button id="stop">Stop</button>
+
+<script type="text/javascript">
+
+	let bluetoothDeviceDetected;
+	let gattCharacteristic;
+	let bleService = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
+	let bleCharacteristic = 'beb5483e-36e1-4688-b7f5-ea07361b26a8';
+
+	const deviceName = 'door';
+
+	document.querySelector('#start').addEventListener('click', function() {
+		if(iSWebBLEAvailable())
+			{start()}
+	});
+
+	document.querySelector('#stop').addEventListener('click', function() {
+		if(iSWebBLEAvailable())
+			{stop()}
+	});
+
+	document.querySelector('#device').addEventListener('click', function() {
+		if(iSWebBLEAvailable())
+			{read()}
+	});
+
+
+	function iSWebBLEAvailable() {
+		if (!navigator.bluetooth){
+		console.log('not available');
+		return false;
+		}
+		return true;
+		
+	}
+
+	function getDeviceInfo() {
+		let options = {
+			acceptAllDevices: true,
+			optionalServices : [bleService, bleCharacteristic]
+			/*filters : [
+			{name: deviceName}
+			]*/
+		}
+
+		console.log("Requestion BLE device info...")
+		return navigator.bluetooth.requestDevice(options).then(device => {
+			bluetoothDeviceDetected = device;
+			console.log('name '+device.name);
+		}).catch(error => {
+			console.log('Request device error: '+error);
+		})
+	}
+
+	function read() {
+		return (bluetoothDeviceDetected ? Promise.resolve() : getDeviceInfo())
+		.then(connectGATT)
+		.then( _ => {
+			console.log('Reading value');
+			return gattCharacteristic.readValue();
+		})
+		.catch(error => {
+			console.log('Waiting to start reading'+error)
+		})
+	}
+	
+
+	function connectGATT() {
+		console.log(bluetoothDeviceDetected.gatt)
+		if(bluetoothDeviceDetected.gatt.connected
+			&& gattCharacteristic){
+			return Promise.resolve()
+		}
+		return bluetoothDeviceDetected.gatt.connect()
+		.then(server => {
+			//console.log("test",server.getPrimaryServices())
+			console.log('Gettinfg GATT service...',server, server.getPrimaryService(bleService));
+			return server.getPrimaryService(bleService)
+		})
+		.then(service => {
+			console.log('GEtting GATT characteristic',service);
+			return service.getCharacteristic(bleCharacteristic)
+		})
+		.then(characteristic => {
+	      gattCharacteristic = characteristic;
+	      gattCharacteristic.addEventListener('characteristicvaluechanged',
+	          handleChangedValue);
+	      document.querySelector('#start').disabled = false;
+	      document.querySelector('#stop').disabled = true;
+    })
+	}
+
+	function start() {
+		gattCharacteristic.startNotifications()
+		.then(_ => {
+			console.log('start reading..')
+
+		})
+	}
+
+	function stop() {
+		gattCharacteristic.stopNotifications()
+		.then(_ => {
+			console.log('stop reading..')
+			
+		})
+	}
+
+</script>
