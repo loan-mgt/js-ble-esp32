@@ -2,15 +2,23 @@
 	<button id="device">Connect to Esp</button>
 	<button id="start">Start</button>
 	<button id="stop">Stop</button>
+	<button id="led">LED</button>
 
 <script type="text/javascript">
 
 	let bluetoothDeviceDetected;
-	let gattCharacteristic;
-	let bleService = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
-	let bleCharacteristic = 'beb5483e-36e1-4688-b7f5-ea07361b26a8';
+	let GATT_LED;
+	let GATT_RadNb;
+	let bleService = '19B10000-E8F2-537E-4F6C-D104768A1214'.toLowerCase();
+	let bleCharacteristicLed = '19B10001-E8F2-537E-4F6C-D104768A1214'.toLowerCase();
+	let bleCharacteristicRanNb = '77a57c66-3bc9-463a-bc52-1ee5763b9c0f'.toLowerCase();
+	let LedOn = true
 
 	const deviceName = 'door';
+
+	document.querySelector('#start').disabled = true;
+	document.querySelector('#stop').disabled = true;
+	document.querySelector('#led').disabled = true;
 
 	document.querySelector('#start').addEventListener('click', function() {
 		if(iSWebBLEAvailable())
@@ -27,6 +35,11 @@
 			{read()}
 	});
 
+	document.querySelector('#led').addEventListener('click', function() {
+		if(iSWebBLEAvailable())
+			{led()}
+	});
+
 
 	function iSWebBLEAvailable() {
 		if (!navigator.bluetooth){
@@ -40,7 +53,7 @@
 	function getDeviceInfo() {
 		let options = {
 			acceptAllDevices: true,
-			optionalServices : [bleService, bleCharacteristic]
+			optionalServices : [bleService, bleCharacteristicLed,bleCharacteristicRanNb]
 			/*filters : [
 			{name: deviceName}
 			]*/
@@ -59,8 +72,12 @@
 		return (bluetoothDeviceDetected ? Promise.resolve() : getDeviceInfo())
 		.then(connectGATT)
 		.then( _ => {
-			console.log('Reading value',gattCharacteristic);
-			return gattCharacteristic.readValue();
+			GATT_RadNb
+			.then( value => {
+				console.log('Reading value',value);
+				return value.readValue();
+			})
+			
 		})
 		.catch(error => {
 			console.log('Waiting to start reading'+error)
@@ -69,60 +86,97 @@
 	
 
 	function connectGATT() {
+		let test ="hello"
 		console.log(bluetoothDeviceDetected.gatt)
 		if(bluetoothDeviceDetected.gatt.connected
-			&& gattCharacteristic){
+			&& GATT_RadNb){
 			return Promise.resolve()
 		}
 		return bluetoothDeviceDetected.gatt.connect()
 		.then(server => {
-			//console.log("test",server.getPrimaryServices())
+			document.querySelector("#device").innerHTML ="Connecting to ESP"
 			console.log('Getting GATT service...',server, server.getPrimaryService(bleService));
 			return server.getPrimaryService(bleService)
 		})
 		.then(service => {
+			document.querySelector("#device").innerHTML ="Connected to ESP"
 			console.log('Getting GATT characteristic',service);
-			return service.getCharacteristic(bleCharacteristic)
-		})
-		.then(characteristic => {
-	      gattCharacteristic = characteristic;
-	      gattCharacteristic.addEventListener('characteristicvaluechanged',
+			GATT_LED = service.getCharacteristic(bleCharacteristicLed);
+			GATT_RadNb = service.getCharacteristic(bleCharacteristicRanNb)
+
+			GATT_LED
+			.then(characteristic => {
+				characteristic.addEventListener('characteristicvaluechanged',
 	          handleChangedValue);
+
+			})
+			GATT_RadNb
+			.then(characteristic => {
+				characteristic.addEventListener('characteristicvaluechanged',
+	          handleChangedValue);
+
+			})
+	      
 	      document.querySelector('#start').disabled = false;
+	      document.querySelector('#led').disabled = false;
 	      document.querySelector('#stop').disabled = true;
-    })
+	
+			return true
+		})
+		
 	}
 
 	function start() {
-		gattCharacteristic.startNotifications()
-		.then(_ => {
-			console.log('start reading..')
 
+		GATT_RadNb
+		.then( GATT => {
+			GATT.startNotifications()
+			console.log('start reading..')
+			document.querySelector('#start').disabled = true;
+	      	document.querySelector('#stop').disabled = false;
 		})
+	
 	}
 
 	function stop() {
-		gattCharacteristic.stopNotifications()
-		.then(_ => {
+		GATT_RadNb
+		.then( GATT => {
+			GATT.stopNotifications()
 			console.log('stop reading..')
-			
+			document.querySelector('#start').disabled = false;
+	      	document.querySelector('#stop').disabled = true;
 		})
+		
 	}
 	function handleChangedValue(event) {
     let value = event.target.value//event.target.value.getUint8(0)
- 
-    
     var now = new Date()
-    console.log('> ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + ' UV Index is ' + decodeStriong(value))
+    //new TextDecoder('utf-8')).decode(value)
+    console.log('> ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + ' Value is ' + value.getUint8(0))
   }
 
-  function decodeStriong(value) {
-  	res = ""
-  	let tmp =new Int8Array(value.buffer);
-    for (var i = 0; i < tmp.length; i++) {
-    	res = res + String.fromCharCode(tmp[i]);
-    }
-    return res
+  function led() {
+  	document.querySelector('#led').disabled = true;
+  	GATT_LED
+  	.then(GATT =>{
+  		if (LedOn){
+	  		LedOn = false;
+	  		console.log('LED Off..')
+	  		const newVal = Uint8Array.of(1);
+	  		return GATT.writeValue(newVal);
+	  	}else{
+	  		LedOn = true;
+	  		console.log('LED On..')
+	  		const newVal = Uint8Array.of(0);
+	  		return GATT.writeValue(newVal);
+	  	}
+  	})
+  	.then(_ => {
+  		document.querySelector('#led').disabled = false;
+  	})
+
   }
+
+ 
 
 </script>
