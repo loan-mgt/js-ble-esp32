@@ -171,7 +171,7 @@
 	bar.style.height = "10px";
 	bar.style.backgroundColor = "blue";
 	bar.style.width = `${endTime - startTime}%`
-	document.querySelector("#graph").appendChild(bar)
+	document.querySelector("#graph").prepend(bar)
 	startTime = performance.now()
   }
 
