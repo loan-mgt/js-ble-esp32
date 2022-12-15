@@ -4,6 +4,8 @@
 	<button id="stop">Stop</button>
 	<button id="led">LED</button>
 
+	<h2 id="log"></h1>
+
 <script type="text/javascript">
 
 	let bluetoothDeviceDetected;
@@ -150,6 +152,7 @@
 	}
 	function handleChangedValue(event) {
     let value = event.target.value//event.target.value.getUint8(0)
+	document.querySelector("#log").innerHTML(value.getUint8(0))
     var now = new Date()
     //new TextDecoder('utf-8')).decode(value)
     console.log('> ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + ' Value is ' + value.getUint8(0))
