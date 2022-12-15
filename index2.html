@@ -54,11 +54,11 @@
 
 	function getDeviceInfo() {
 		let options = {
-			//acceptAllDevices: true,
-			//optionalServices : [bleService, bleCharacteristicLed,bleCharacteristicRanNb]
-			 filters : [
+			acceptAllDevices: true,
+			optionalServices : [bleService, bleCharacteristicLed,bleCharacteristicRanNb]
+			 /*filters : [
 			 {name: deviceName}
-			 ]
+			 ]*/
 		}
 
 		console.log("Requestion BLE device info...")
