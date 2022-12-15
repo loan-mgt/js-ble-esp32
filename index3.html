@@ -170,15 +170,11 @@
 	let  bar = document.createElement("div")
 	bar.style.height = "10px";
 	bar.style.backgroundColor = "blue";
-	bar.style.width = `${endTime - startTime}%`
+	bar.style.width = `${(endTime - startTime)*2}%`
+	document.querySelector("#graph").innerHTML = ""
 	document.querySelector("#graph").prepend(bar)
 
-	if (document.getElementById('graph').children.length >12){}
-	for (let i = 10; i < document.getElementById('graph').children.length; i++) {
-		document.getElementById('graph').removeChild(document.getElementById('graph').children[i]);
-		
-		}
-	}
+	
 
 	
 	startTime = performance.now()
