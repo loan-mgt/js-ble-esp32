@@ -54,7 +54,7 @@
 
 	function getDeviceInfo() {
 		let options = {
-			acceptAllDevices: true,
+			//acceptAllDevices: true,
 			optionalServices : [bleService, bleCharacteristicLed,bleCharacteristicRanNb]
 			// filters : [
 			// {name: deviceName}
@@ -152,7 +152,7 @@
 	}
 	function handleChangedValue(event) {
     let value = event.target.value//event.target.value.getUint8(0)
-	document.querySelector("#log").innerHTML(value.getUint8(0))
+	document.querySelector("#log").innerHTML= value.getUint8(0);
     var now = new Date()
     //new TextDecoder('utf-8')).decode(value)
     console.log('> ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + ' Value is ' + value.getUint8(0))
