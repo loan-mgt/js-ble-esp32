@@ -14,7 +14,7 @@
 	let bleCharacteristicRanNb = '77a57c66-3bc9-463a-bc52-1ee5763b9c0f'.toLowerCase();
 	let LedOn = true
 
-	const deviceName = 'door';
+	const deviceName = 'COPP-DOOR';
 
 	document.querySelector('#start').disabled = true;
 	document.querySelector('#stop').disabled = true;
@@ -52,11 +52,11 @@
 
 	function getDeviceInfo() {
 		let options = {
-			acceptAllDevices: true,
-			optionalServices : [bleService, bleCharacteristicLed,bleCharacteristicRanNb]
-			/*filters : [
+			//acceptAllDevices: true,
+			//optionalServices : [bleService, bleCharacteristicLed,bleCharacteristicRanNb]
+			filters : [
 			{name: deviceName}
-			]*/
+			]
 		}
 
 		console.log("Requestion BLE device info...")
