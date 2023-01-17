@@ -4,7 +4,14 @@
 	<button id="stop">Stop</button>
 	<button id="led">LED</button>
 
-	<h2 id="log"></h1>
+	<h2 id="log"></h2>
+
+	<div id="graph" style="display: flex; gap: 10px; flex-direction: column;">
+		<div style="height: 10; width: 50%; background-color: aqua;"></div>
+		<div style="height: 10; width: 30%; background-color: aqua;"></div>
+		<div style="height: 10; width: 20%; background-color: aqua;"></div>
+		<div style="height: 10; width: 5%; background-color: aqua;"></div>
+	</div>
 
 <script type="text/javascript">
 
@@ -15,6 +22,8 @@
 	let bleCharacteristicLed = '19B10001-E8F2-537E-4F6C-D104768A1214'.toLowerCase();
 	let bleCharacteristicRanNb = '77a57c66-3bc9-463a-bc52-1ee5763b9c0f'.toLowerCase();
 	let LedOn = true
+	let startTime = performance.now()
+	let endTime = performance.now()
 
 	const deviceName = 'COOP-DOOR';
 
@@ -54,11 +63,11 @@
 
 	function getDeviceInfo() {
 		let options = {
-			acceptAllDevices: true,
-			optionalServices : [bleService, bleCharacteristicLed,bleCharacteristicRanNb]
-			 /*filters : [
+			//acceptAllDevices: true,
+			optionalServices : [bleService, bleCharacteristicLed,bleCharacteristicRanNb],
+			 filters : [
 			 {name: deviceName}
-			 ]*/
+			 ]
 		}
 
 		console.log("Requestion BLE device info...")
@@ -155,7 +164,20 @@
 	document.querySelector("#log").innerHTML= value.getUint8(0);
     var now = new Date()
     //new TextDecoder('utf-8')).decode(value)
-    console.log('> ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + ' Value is ' + value.getUint8(0))
+	
+	endTime = performance.now()
+    console.log('> ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + ' Value is ' + value.getUint8(0), endTime - startTime)
+	let  bar = document.createElement("div")
+	bar.style.height = "10px";
+	bar.style.backgroundColor = "blue";
+	bar.style.width = `${(endTime - startTime)*2}%`
+	document.querySelector("#graph").innerHTML = ""
+	document.querySelector("#graph").prepend(bar)
+
+	
+
+	
+	startTime = performance.now()
   }
 
   function led() {
