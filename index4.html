@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="pico.classless.css">
+
 </head>
 <body>
 
@@ -16,10 +16,20 @@
 
 	<button id="led">LED</button>
 
-<progress value="25" max="100"></progress>
+	<button id="disconnect">disconnect</button>
+
+<progress value="0" max="100"></progress>
+
+<style type="text/css">
+	progress{
+		transition: all 2s;
+	}
+	
+</style>
 
 <script type="text/javascript">
 
+	let id;
 	let bluetoothDeviceDetected;
 	let GATT_LED;
 	let GATT_RadNb;
@@ -28,7 +38,8 @@
 	let bleCharacteristicRanNb = '77a57c66-3bc9-463a-bc52-1ee5763b9c0f'.toLowerCase();
 	let LedOn = true
 
-	const deviceName = 'door';
+	const progressBar = document.querySelector("progress")
+	const deviceName = 'COOP-DOOR';
 
 	document.querySelector('#start').disabled = true;
 	document.querySelector('#stop').disabled = true;
@@ -54,6 +65,18 @@
 			{led()}
 	});
 
+	document.querySelector('#disconnect').addEventListener('click', function() {
+		if(bluetoothDeviceDetected.gatt.connected){
+			bluetoothDeviceDetected.gatt.disconnect()
+		}
+		progressBar.newValue = 0;
+				move();
+			progressBar.value = 0;
+			console.log(bluetoothDeviceDetected)
+	});
+
+	
+
 
 	function iSWebBLEAvailable() {
 		if (!navigator.bluetooth){
@@ -66,11 +89,11 @@
 
 	function getDeviceInfo() {
 		let options = {
-			acceptAllDevices: true,
-			optionalServices : [bleService, bleCharacteristicLed,bleCharacteristicRanNb]
-			/*filters : [
-			{name: deviceName}
-			]*/
+			//acceptAllDevices: true,
+			optionalServices : [bleService, bleCharacteristicLed,bleCharacteristicRanNb],
+			filters : [
+			{namePrefix: deviceName}
+			]
 		}
 
 		console.log("Requestion BLE device info...")
@@ -104,15 +127,21 @@
 		console.log(bluetoothDeviceDetected.gatt)
 		if(bluetoothDeviceDetected.gatt.connected
 			&& GATT_RadNb){
+			progressBar.newValue = 20;
+				move();
 			return Promise.resolve()
 		}
 		return bluetoothDeviceDetected.gatt.connect()
 		.then(server => {
+			progressBar.newValue = 37;
+				move();
 			document.querySelector("#device").innerHTML ="Connecting to ESP"
 			console.log('Getting GATT service...',server, server.getPrimaryService(bleService));
 			return server.getPrimaryService(bleService)
 		})
 		.then(service => {
+			progressBar.newValue = 75;
+				move();
 			document.querySelector("#device").innerHTML ="Connected to ESP"
 			console.log('Getting GATT characteristic',service);
 			GATT_LED = service.getCharacteristic(bleCharacteristicLed);
@@ -120,6 +149,8 @@
 
 			GATT_LED
 			.then(characteristic => {
+				progressBar.newValue = 100;
+				move();
 				characteristic.addEventListener('characteristicvaluechanged',
 	          handleChangedValue);
 
@@ -134,7 +165,7 @@
 	      document.querySelector('#start').disabled = false;
 	      document.querySelector('#led').disabled = false;
 	      document.querySelector('#stop').disabled = true;
-	
+			
 			return true
 		})
 		
@@ -190,6 +221,18 @@
   	})
 
   }
+
+
+ function move() {
+  id = setInterval(frame, 20);
+  function frame() {
+    if (progressBar.value >= progressBar.newValue) {
+      clearInterval(id);
+    } else {
+      progressBar.value += 1;
+    }
+  }
+}
 
  
 
