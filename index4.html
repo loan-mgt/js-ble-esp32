@@ -175,6 +175,7 @@
 
 		GATT_RadNb
 		.then( GATT => {
+			console.log(GATT)
 			GATT.startNotifications()
 			console.log('start reading..')
 			document.querySelector('#start').disabled = true;
