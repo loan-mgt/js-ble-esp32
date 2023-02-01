@@ -33,6 +33,8 @@
 	let bluetoothDeviceDetected;
 	let GATT_LED;
 	let GATT_RadNb;
+	let service2;
+	let GATT_date;
 
 	let bleService = '19B10000-E8F2-537E-4F6C-D104768A1214'.toLowerCase();
 	let bleCharacteristicLed = '19B10001-E8F2-537E-4F6C-D104768A1214'.toLowerCase();
@@ -143,6 +145,11 @@
   	progressBar.newValue = 100;
   	move();
 
+
+  	service2 = await server.getPrimaryService(dateService);
+
+  	GATT_date = await service2.getCharacteristic(dateChar);
+
   	GATT_LED.addEventListener('characteristicvaluechanged',
 	          handleChangedValue);
   	GATT_RadNb.addEventListener('characteristicvaluechanged',
@@ -241,9 +248,22 @@
       progressBar.value += 1;
     }
   }
+
 }
 
- 
+
+  function readDate(){
+  	const date = new Date();
+  	dateInfo = [date.getHours(), date.getMinutes(), date.getDay(), date.getMonth(), date.getYear()]
+  	return new Uint8Array(dateInfo)
+  }
+
+  function writeDate(){
+  	GATT_date.writeDate(readDate())
+  }
+
+
+ readDate()
 
 </script>
 
