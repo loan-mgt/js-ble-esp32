@@ -18,6 +18,9 @@
 
 	<button id="disconnect">disconnect</button>
 
+	<button id="readDate">readDate</button>
+	<button id="writeDate">writeDate</button>
+
 <progress value="0" max="100"></progress>
 
 <style type="text/css">
@@ -70,8 +73,22 @@
 			{led()}
 	});
 
+	document.querySelector("#readDate").addEventListener('click', function() {
+		readDate()
+		.then(date =>{
+				console.log("readDate:",date);
+		})
+		
+	})
+
+	document.querySelector("#writeDate").addEventListener('click', function() {
+		writeDate();
+		console.log("write..");
+	});
+
 	document.querySelector('#disconnect').addEventListener('click', function() {
 		if(bluetoothDeviceDetected.gatt.connected){
+			console.log("disconecting..")
 			bluetoothDeviceDetected.gatt.disconnect()
 		}
 		progressBar.newValue = 0;
@@ -253,19 +270,23 @@
 
 }
 
+async function readDate() {
+		const dump = await GATT_date.readValue()
+		return dump
+}
 
-  function readDate(){
+  function getDate(){
   	const date = new Date();
   	dateInfo = [date.getHours(), date.getMinutes(), date.getDay(), date.getMonth(), date.getYear()]
   	return new Uint8Array(dateInfo)
   }
 
   function writeDate(){
-  	GATT_date.writeDate(readDate())
+  	GATT_date.writeValue(getDate())
   }
 
 
- readDate()
+ // readDate()
 
 </script>
 
