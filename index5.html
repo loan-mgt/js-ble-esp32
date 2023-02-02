@@ -96,7 +96,9 @@
 	function getDeviceInfo() {
 		let options = {
 			//acceptAllDevices: true,
-			optionalServices : [bleService, bleCharacteristicLed,bleCharacteristicRanNb ],
+			optionalServices : [bleService, 
+				bleCharacteristicLed,bleCharacteristicRanNb,
+				dateService, dateChar ],
 			filters : [
 			{namePrefix: deviceName}
 			]

@@ -68,6 +68,7 @@ void loop() {
     while (central.connected()) {
       // if the remote device wrote to the characteristic,
       // use the value to control the LED:
+      
       if (switchCharacteristic.written()) {
          Serial.println("update");
         if (switchCharacteristic.value()) {   // any value other than 0
@@ -77,6 +78,11 @@ void loop() {
           Serial.println("LED off");
           digitalWrite(ledPin, LOW);          // will turn the LED off
         }
+      }
+
+      if (dateCharacteristic.written()){
+        Serial.println("Date update");
+         Serial.println(dateCharacteristic.value());
       }
         ble_value = random(0, 11);
         switchCharacteristic2.writeValue(ble_value);
