@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>esp to js</title>
+</head>
+<body style="background-color: black;">
+
+	<button id="connect">Connect</button>
+	<button id="read">Read</button>
+	<button id="write">Write</button>
+	<button id="disconnect">Disconnect</button>
+
+</body>
+
+<script type="text/javascript">
+
+	const connectBtn = document.querySelector("#connect");
+	const readBtn = document.querySelector("#read");
+	const writeBtn = document.querySelector("#write");
+	const disconnectBtn = document.querySelector("#disconnect");
+
+	const bleService = '19B10000-E8F2-537E-4F6C-D104768A1214'.toLowerCase();
+	const bleCharacteristicRandNb = '77a57c66-3bc9-463a-bc52-1ee5763b9c0f'.toLowerCase();
+	const bleCharacteristicLed = '19B10001-E8F2-537E-4F6C-D104768A1214'.toLowerCase();
+	let LedOn = true;
+
+	let bluetoothDevice;
+	let GattServer;
+	let GattLed;
+	let GattRandNb;
+
+	const deviceName = 'ESP-BLE';
+
+	readBtn.disabled = true;
+	writeBtn.disabled = true;
+	disconnectBtn.disabled = true;
+
+	connectBtn.addEventListener('click', function() {
+		if(isWebBLEAvailable()){
+			connectGATT();
+		}
+	});
+
+	readBtn.addEventListener('click', function() {
+		if(isWebBLEAvailable()){
+			read();
+		}
+	});
+
+	writeBtn.addEventListener('click', function() {
+		if(isWebBLEAvailable()){
+			write();
+		}
+	});
+
+	disconnectBtn.addEventListener('click', function() {
+		if(isWebBLEAvailable()){
+			disconnect();
+		}
+	});
+
+
+	function isWebBLEAvailable() {
+		if(!navigator.bluetooth){
+			console.error("🚧 Bluetooth non disponible");
+		}
+		return navigator.bluetooth;
+	}
+
+	async function getDeviceInfo() {
+		const options = {
+			optionalServices : [bleService,
+				bleCharacteristicRandNb,
+				bleCharacteristicLed,
+				],
+			filters : [
+				{namePrefix: deviceName}
+			]
+
+		};
+		console.log("📄 Choisir un appareil ...");
+		try {
+			return await navigator.bluetooth.requestDevice(options);
+		} catch (error) {
+			console.error("🚨 Erreur lors de la selection "+error);
+			return null;
+		}
+	}
+
+
+	async function connectGATT() {
+		bluetoothDevice = await getDeviceInfo();
+
+		if (!bluetoothDevice.gatt.connected){
+			GattServer = await bluetoothDevice.gatt.connect();
+		}
+		console.log("📱 Appareil connecté !",bluetoothDevice.gatt)
+
+		console.log("👷 Demande du service ...")
+		service = await server.getPrimaryService(bleService);
+
+		console.log("👷 Demande des characteristics ...")
+		GattLed = await service.getCharacteristic(bleCharacteristicLed);
+		GattRandNb = await service.getCharacteristic(bleCharacteristicRandNb);
+
+		GattRandNb.addEventListener('characteristicvaluechanged', handleChangedValue);
+
+		readBtn.disabled = false;
+		writeBtn.disabled = false;
+		disconnectBtn.disabled = false;
+	}
+
+	function handleChangedValue(event) {
+		const value = event.target.value;
+		console.log("valeur: "+value.getUint8(0));
+	}
+
+	async function read(GATT){
+		return await GATT.readValue();
+	}
+
+	function write(GATT, value){
+		console.log("🚀 Envoi de données")
+		GATT.writeValue(value);
+	}
+
+	async function disconnect(){
+		if(bluetoothDevice.gatt.connected){
+			await bluetoothDevice.gatt.disconnect();
+		}
+		console.log("🚩 Appareil déconnecté", bluetoothDevice);
+		readBtn.disabled = true;
+		writeBtn.disabled = true;
+		disconnectBtn.disabled = true;
+	}
+	
+</script>
+</html>
