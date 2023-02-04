@@ -18,4 +18,32 @@ It's important to note that the above examples are just a few possibilities and 
 - door status 1 byte
 - winter time 1 byte
 - light sensor value (more than 4 (254))
-- 
+
+
+## guide Fr
+- dans cette demo on aura un seul service avec 2 char
+- un qui premt de génré la led de esp32 avec qui peut recevoi 2 octec
+- un qui sera en lecture seul mais pour le quel on mettre un lsitenser qui observe si la valeur change commé d'un seul octer
+- crée le fichier html
+- ajouter la structure de base d'un fichier html
+- ajouter 5 button
+- pour se co pour lire pour ecrit pour etre notifier et se deco
+- definir les bouton dans le js
+- definir les uuid des service
+- ajouter de vaiable
+- ajouter les liseneter quand onc lcike sur les boutotn
+- desactiver les bouton tant qu'uaun apparail est connecter
+- fonction se connecter
+- verfiifer si le navigateur est compatible
+- fonction pour la demande d'appapreil
+- fonction connecter se conncter
+- demande le service
+- aperis du service demander la charcherteroistique que l'on soug=haite
+- activer les bouton
+- fonction read pour la char led
+- fonction écritre pour le char led
+- fonction notify echoute chengemenat
+- deconneciton
+
+- code arduino
+
