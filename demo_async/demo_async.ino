@@ -3,8 +3,8 @@
 BLEService mainService("19B10000-E8F2-537E-4F6C-D104768A1214"); 
 
 
-BLEByteCharacteristic characteristicRandNb("19B10001-E8F2-537E-4F6C-D104768A1214", BLERead | BLEWrite);
-BLECharacteristic characteristicLed("77a57c66-3bc9-463a-bc52-1ee5763b9c0f", BLERead | BLEWrite, 2);
+BLEByteCharacteristic characteristicRandNb("77a57c66-3bc9-463a-bc52-1ee5763b9c0f", BLERead | BLENotify);
+BLECharacteristic characteristicLed("19B10001-E8F2-537E-4F6C-D104768A1214", BLERead | BLEWrite, 2);
 
 
 const int ledPin = LED_BUILTIN; 
@@ -63,9 +63,14 @@ void loop() {
       
       if (characteristicLed.written()) {
          Serial.println("mise à jour");
+         Serial.print(characteristicLed.value()[0]);
+         Serial.print(" / ");
+         Serial.println(characteristicLed.value()[1]);
         if (characteristicLed.value()[1] == 2) {  
           Serial.println("LED on");
-          digitalWrite(ledPin, HIGH);        
+          digitalWrite(ledPin, HIGH);
+          uint8_t newValues[2] = {23,2}; 
+          characteristicLed.writeValue(newValues,2);    
         } else {                             
           Serial.println("LED off");
           digitalWrite(ledPin, LOW);         
