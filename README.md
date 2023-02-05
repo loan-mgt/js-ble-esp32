@@ -1,8 +1,6 @@
 # [js-ble-esp32](https://qypol342.github.io/js-ble-esp32/index2.html)
 
-js-ble-esp32
-
-<img sr="src/illustration.png">
+<img width=400 src="src/illustration.png">
 
 ## Objectif
 L’objectif de ce projet est d’avoir le code minimum pour communiquer avec esp32 avec du Bluetooth BLE depuis son navigateur. Parce que le projet se repose sur le navigateur cela fonctionne aussi sur mobile.
@@ -10,7 +8,7 @@ L’objectif de ce projet est d’avoir le code minimum pour communiquer avec es
 ## Attention
 L’api Bluetooth n’est pas encore supporté par  beaucoup de navigateurs. Pour l’instant seuls les navigateurs avec le moteur Chromium sont compatibles.
 
-<img src="ble_support.PNG">
+<img src="src/ble_support.PNG">
 
 ## Prérequis
 Vous avez besoin d’un Esp32 évidemment, de l’IDE Arduino pour téléverser le code et finalement d’un serveur web (dans mon cas j’ai utiliser npm avec la commande `npx serve`)
@@ -26,7 +24,7 @@ Le protocole fonctionne avec des services et des caractéristiques. Cette struct
 
 Voici la structure créée dans ce projet:
 
-<img src="schema.png">
+<img width=500 src="src/schema.png">
 
 Dans cette exemple `characteristicRandNb` est un seul octet, alors que `characteristicLed` est un table de 2 octets.
 
@@ -37,15 +35,13 @@ Dans le code de l’arduino si le deuxième élément du tableau est un 2 alors 
 Avec le bouton `Notify` sur la page web vous pouvez vous abonner au changement de valeur. A chaque changement, la nouvelle valeur sera affichée dans la console.</br>
 Finalement le bouton `Disconnect` qui parle de lui-même permet de déconnecter l'appareil. Dans cette configuration l'Esp 32 peut être connecté à un seul appareil à la fois.
 
-<img src="demo.PNG">
+<img width=700 src="src/demo.PNG">
 
 ## Documentation
 
-Librairie arduino BLE
+[Librairie arduino BLE](https://www.arduino.cc/reference/en/libraries/arduinoble/)
 
-Google BLE Guide
-
-
+[Google BLE Guide](https://developer.chrome.com/articles/bluetooth/)
 
 
 
@@ -58,16 +54,9 @@ Google BLE Guide
 
 
 
-## Info
-There are a few ways to send a date-time value using only 20 bytes of data over Bluetooth Low Energy (BLE). Here are a few examples:
 
-    Sending the date-time value as a Unix timestamp: A Unix timestamp is a number that represents the number of seconds since January 1, 1970. Since a timestamp is a numeric value, it can be easily represented using a 32-bit integer, which would take up 4 bytes of data.
 
-    Sending the date-time value as a string: You can send the date-time value as a string in a specific format, such as "YYYY-MM-DD HH:MM:SS" which would take up 19 bytes of data.
 
-    Sending the date-time value as a packed binary data: You can use some libraries to pack the date-time value into a 20 bytes of binary data, for example a library like https://github.com/JChristensen/Time can pack the date time in a 12 bytes of binary data.
-
-It's important to note that the above examples are just a few possibilities and the best option will depend on the specific requirements and constraints of your application.
 
 ## Data needed
 
