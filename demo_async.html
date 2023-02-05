@@ -37,7 +37,7 @@
 
 	const deviceName = 'ESP-BLE';
 
-	//readBtn.disabled = true;
+	readBtn.disabled = true;
 	writeBtn.disabled = true;
 	notifyBtn.disabled = true;
 	disconnectBtn.disabled = true;
@@ -48,13 +48,9 @@
 		}
 	});
 
-	readBtn.addEventListener('click', function() {
+	readBtn.addEventListener('click',async function() {
 		if(isWebBLEAvailable() && bluetoothDevice){
-			read(GattLed)
-			.then( value => {
-				console.log("🏷️ Lecture: ",arrayToString(value));
-			})
-			
+			console.log("🏷️ Lecture: ",arrayToString(await read(GattLed)));
 		}
 	});
 
