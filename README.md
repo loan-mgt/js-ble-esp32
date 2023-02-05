@@ -2,24 +2,24 @@
 
 <img width=400 src="src/illustration.png">
 
-## Objectif
+## 🎯 Objectif
 L’objectif de ce projet est d’avoir le code minimum pour communiquer avec esp32 avec du Bluetooth BLE depuis son navigateur. Parce que le projet se repose sur le navigateur cela fonctionne aussi sur mobile.
 
-## Attention
+## ⚠️ Attention
 L’api Bluetooth n’est pas encore supporté par  beaucoup de navigateurs. Pour l’instant seuls les navigateurs avec le moteur Chromium sont compatibles.
 
 <img src="src/ble_support.PNG">
 
-## Prérequis
+## 👉 Prérequis
 Vous avez besoin d’un Esp32 évidemment, de l’IDE Arduino pour téléverser le code et finalement d’un serveur web (dans mon cas j’ai utiliser npm avec la commande `npx serve`)
 
-## Installation
+## 📋 Installation
 Cloner le projet sur votre machine </br>
 Téléverser le `.ino` sur votre Esp32 </br>
 Assurez vous que le chemin du serveur web correspond bien à la racine de ce projet
 Lancer votre serveur web ( exemple `npx serve` )
 
-## Bluetooth BLE structure
+## 📐 Bluetooth BLE structure
 Le protocole fonctionne avec des services et des caractéristiques. Cette structure est très similaire à celle d’une bibliothèque, les services sont des étagères, on y range donc les livres des mêmes auteurs et du même genre. Les caractéristiques sont comme des livres on les ranges dans les mêmes services si il propose le même type de donnée ou que les données ont le même objectif.
 
 Voici la structure créée dans ce projet:
@@ -28,7 +28,7 @@ Voici la structure créée dans ce projet:
 
 Dans cette exemple `characteristicRandNb` est un seul octet, alors que `characteristicLed` est un table de 2 octets.
 
-## Utilisation
+## 🚀 Utilisation
 Un fois la page web chargée et l'Esp 32 alimenté, cliquez sur `connect`, si votre navigateur est compatible un petit page va soucrir où vous allez pouvoir choisir l'appareil.
 Une fois l'appareil choisi et la connexion réussit les autres boutons sont activés. Avec le bouton `Read` vous pouvez lire `characteristicLed` qui est un tableau de 2 octets. Avec le bouton `Write` vous pouvez écrire sur `characteristicLed`. Le code envoyé lorsque vous cliquez sur `Write` change entre ces deux tableaux: Une fois [42, 35] un fois [42,2]. </br>
 Dans le code de l’arduino si le deuxième élément du tableau est un 2 alors la LED s’allume. Pour confirmer cet événement, il change la première valeur du tableau, il la met à 23. L'Esp 32 va a chaque révolution modifier la valeur de `characteristicRandNb` avec un nombre aléatoire compris entre 0 et 11. </br>
@@ -37,7 +37,7 @@ Finalement le bouton `Disconnect` qui parle de lui-même permet de déconnecter 
 
 <img width=700 src="src/demo.PNG">
 
-## Documentation
+## 📚 Documentation
 
 [Librairie arduino BLE](https://www.arduino.cc/reference/en/libraries/arduinoble/)
 
