@@ -7,8 +7,9 @@ L’objectif de ce projet est d’avoir le code minimum pour communiquer avec es
 
 ## ⚠️ Attention
 L’api Bluetooth n’est pas encore supporté par  beaucoup de navigateurs. Pour l’instant seuls les navigateurs avec le moteur Chromium sont compatibles.
-
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API"
 <img src="src/ble_support.PNG">
+</a>
 
 ## 👉 Prérequis
 Vous avez besoin d’un Esp32 évidemment, de l’IDE Arduino pour téléverser le code et finalement d’un serveur web (dans mon cas j’ai utiliser npm avec la commande `npx serve`)
