@@ -2,6 +2,8 @@
 
 <img width=400 src="src/illustration.png">
 
+### [Change language 🇫🇷](README.md)
+
 # 🎯 Objective
 The goal of this project is to have the minimum code to communicate with esp32 using Bluetooth BLE from the browser. Since the project relies on the browser, it also works on mobile.
 
@@ -43,18 +45,6 @@ Finally, the button `Disconnect`, which speaks for itself, allows you to disconn
 [Librairie arduino BLE](https://www.arduino.cc/reference/en/libraries/arduinoble/)
 
 [Google BLE Guide](https://developer.chrome.com/articles/bluetooth/)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
