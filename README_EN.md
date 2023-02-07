@@ -1,8 +1,12 @@
-# [js-ble-esp32](https://qypol342.github.io/js-ble-esp32/index2.html)
 
+<div align="center">
 <img width=400 src="src/illustration.png">
 
-### [Change language 🇫🇷](README.md)
+# [JS send data to ESP32 with BLE](https://qypol342.github.io/js-ble-esp32/async_demo.html)
+
+[French README 🇫🇷](README.md)
+</div>
+
 
 # 🎯 Objective
 The goal of this project is to have the minimum code to communicate with esp32 using Bluetooth BLE from the browser. Since the project relies on the browser, it also works on mobile.
