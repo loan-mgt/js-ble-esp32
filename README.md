@@ -1,6 +1,10 @@
 # [js-ble-esp32](https://qypol342.github.io/js-ble-esp32/index2.html)
 
 <img width=400 src="src/illustration.png">
+ 
+
+### [Changer la langue   🇬🇧](README_EN.md)
+
 
 ## 🎯 Objectif
 L’objectif de ce projet est d’avoir le code minimum pour communiquer avec esp32 avec du Bluetooth BLE depuis son navigateur. Parce que le projet se repose sur le navigateur cela fonctionne aussi sur mobile.
