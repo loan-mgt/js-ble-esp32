@@ -1,9 +1,13 @@
-# [js-ble-esp32](https://qypol342.github.io/js-ble-esp32/index2.html)
 
+<div align="center">
 <img width=400 src="src/illustration.png">
- 
 
-### [Changer la langue   🇬🇧](README_EN.md)
+# [Envoi de données de JS à ESP32 avec BLE](https://qypol342.github.io/js-ble-esp32/async_demo.html)
+
+[English README 🇬🇧](README_EN.md)
+</div>
+
+
 
 
 ## 🎯 Objectif
@@ -11,6 +15,7 @@ L’objectif de ce projet est d’avoir le code minimum pour communiquer avec es
 
 ## ⚠️ Attention
 L’api Bluetooth n’est pas encore supporté par  beaucoup de navigateurs. Pour l’instant seuls les navigateurs avec le moteur Chromium sont compatibles.
+
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API">
 <img src="src/ble_support.PNG">
 </a>
