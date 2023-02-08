@@ -1,7 +1,7 @@
 <div align="center">
 <img width=400 src="src/illustration.png">
 
-# [Envoi de données de JS à ESP32 avec BLE](https://qypol342.github.io/js-ble-esp32/async_demo.html)
+# [Envoi de données de JS à ESP32 avec BLE](https://qypol342.github.io/js-ble-esp32/demo_async.html)
 
 [English README 🇬🇧](README_EN.md)
 </div>
