@@ -48,18 +48,14 @@
 		}
 	});
 
-	readBtn.addEventListener('click', function() {
-		if(isWebBLEAvailable()){
-			read(GattLed)
-			.then( value => {
-				console.log("🏷️ Lecture: ",arrayToString(value));
-			})
-			
+	readBtn.addEventListener('click',async function() {
+		if(isWebBLEAvailable() && bluetoothDevice){
+			console.log("🏷️ Lecture: ",arrayToString(await read(GattLed)));
 		}
 	});
 
 	writeBtn.addEventListener('click', function() {
-		if(isWebBLEAvailable()){
+		if(isWebBLEAvailable() && bluetoothDevice){
 			if (LedOn) {
 				write(GattLed, new Uint8Array([42,35]));
 				LedOn = false;
@@ -72,13 +68,13 @@
 	});
 
 	notifyBtn.addEventListener('click', function () {
-		if(isWebBLEAvailable()){
+		if(isWebBLEAvailable() && bluetoothDevice){
 			toggleNotify(GattRandNb);
 		}
 	})
 
 	disconnectBtn.addEventListener('click', function() {
-		if(isWebBLEAvailable()){
+		if(isWebBLEAvailable() && bluetoothDevice){
 			disconnect();
 		}
 	});
