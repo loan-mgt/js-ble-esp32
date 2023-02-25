@@ -86,7 +86,7 @@ Finalement le bouton `Disconnect` qui parle de lui-même permet de déconnecter 
 - fonction pour la demande d'appapreil
 - fonction connecter se conncter
 - demande le service
-- aperis du service demander la charcherteroistique que l'on soug=haite
+- aperis du service demander la charcherteroistique que l'on soughaite
 - activer les bouton
 - fonction read pour la char led
 - fonction écritre pour le char led
