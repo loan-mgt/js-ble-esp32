@@ -94,4 +94,11 @@ Finalement le bouton `Disconnect` qui parle de lui-même permet de déconnecter 
 - deconneciton
 
 - code arduino
-
+- commence par déclaré les service et char
+- ajoute le char au service
+- met un valeur par default
+- start advertising
+- while loop
+- if central conected ?
+- faire ce que l'on veut 
+- is value written .. do 
