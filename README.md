@@ -102,3 +102,4 @@ Finalement le bouton `Disconnect` qui parle de lui-même permet de déconnecter 
 - if central conected ?
 - faire ce que l'on veut 
 - is value written .. do 
+- simple demo
