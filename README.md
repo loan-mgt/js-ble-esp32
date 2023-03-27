@@ -101,5 +101,6 @@ Finalement le bouton `Disconnect` qui parle de lui-même permet de déconnecter 
 - while loop
 - if central conected ?
 - faire ce que l'on veut 
+- dans notre cas une valeur differente de 1 allume la led de l'esp32
 - is value written .. do 
 - simple demo
