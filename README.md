@@ -13,7 +13,7 @@
 L’objectif de ce projet est d’avoir le code minimum pour communiquer avec esp32 avec du Bluetooth BLE depuis son navigateur. Parce que le projet se repose sur le navigateur cela fonctionne aussi sur mobile.
 
 ## ⚠️ Attention
-L’api Bluetooth n’est pas encore supporté par  beaucoup de navigateurs. Pour l’instant seuls les navigateurs avec le moteur Chromium sont compatibles.
+L’api Bluetooth n’est pas encore supporté par  beaucoup de navigateurs. Pour l’instant seuls les navigateurs avec le moteur Chromium sont compatibles. Mais cela n'est pas un probleme sur mobile (PWA)
 
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API">
 <img src="src/ble_support.PNG">
