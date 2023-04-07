@@ -35,7 +35,7 @@ Voici la structure créée dans ce projet:
 
 <img width=500 src="src/schema.png">
 
-Dans cette exemple `characteristicRandNb` est un seul octet, alors que `characteristicLed` est un table de 2 octets.
+Dans cette exemple `characteristicRandNb` est un seul octet, alors que `characteristicLed` est un table de 2 octet. L'objectif est de contrôler la led (l'allumer et l'éteindre).
 
 ## 🚀 Utilisation
 Un fois la page web chargée et l'Esp 32 alimenté, cliquez sur `connect`, si votre navigateur est compatible un petit page va soucrir où vous allez pouvoir choisir l'appareil.
