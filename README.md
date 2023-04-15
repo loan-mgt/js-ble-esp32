@@ -89,7 +89,9 @@ Finalement le bouton `Disconnect` qui parle de lui-même permet de déconnecter 
 - aperis du service demander la charcherteroistique que l'on soughaite
 - activer les bouton
 - fonction read pour la char led
+- conertry en array
 - fonction écritre pour le char led
+- alterner en 2 e
 - fonction notify echoute chengemenat
 - deconneciton
 
