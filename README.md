@@ -107,3 +107,15 @@ Finalement le bouton `Disconnect` qui parle de lui-même permet de déconnecter 
 - dans notre cas une valeur differente de 1 allume la led de l'esp32
 - is value written .. do 
 - simple demo
+
+
+
+to redo
+
+- read function
+- - on recupère la valeur avec readeValue sera un type array Buffer
+- puis on la converti an array
+
+- la fonction requestDevice qui retour l'appareil chsoir par l'ulisateur
+- on lui donne un filtre, on va donc affiché seulement les apprail nome comme la variable devcice name
+- et qui ocntione les services et charchartirse que nous allons utliser, ca c'est tres  important
