@@ -96,17 +96,33 @@ Finalement le bouton `Disconnect` qui parle de lui-même permet de déconnecter 
 - deconneciton
 
 - code arduino
+- import la lib BLE
+- delare le service et les characteristic, avec leur taille et leur type
 - delare les pins LED et les variables 
-- commence par déclaré les service et char (leur nom et leur taille)
-- ajoute le char au service
+- dans le setup
+- definir le pinde la led comme output
+- verfie que la lib BLE est bien prette
+- on defnie le nom de notre appreil (faire attention)
+- start advertising le service
+- ajoute les char au service
+- on ajoute le service au serveur BLE
 - met un valeur par default
-- start advertising
+- et on demare le service `advertise();`
 - while loop
-- if central conected ?
+- if central conected ? // si un apparile est connecter
+- print son adresse mac
+- tant qu'il est connecter
 - faire ce que l'on veut 
-- dans notre cas une valeur differente de 1 allume la led de l'esp32
-- is value written .. do 
-- simple demo
+- si la char led est modifier
+- on print la valeur duc char
+- si la deuxieme valeur du array du char est a 2
+- on allume la led et modifier la premier valeur de l'array du char
+- sinon on eteint la led
+
+- on genere un nomre alétoir pour le char RandNb un nomreb entre 0 et 11
+- on ecrit la nouvelle valeur au char
+
+- si l'appreil se déconnect on afficher son adress mac
 
 
 
