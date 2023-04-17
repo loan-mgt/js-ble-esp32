@@ -68,7 +68,7 @@ Finalement le bouton `Disconnect` qui parle de lui-même permet de déconnecter 
 - light sensor value (more than 4 (254))
 
 
-## guide Fr
+## Note video
 - dans cette demo on aura un seul service avec 2 char
 - un qui premt de génré la led de esp32 avec qui peut recevoi 2 octec
 - un qui sera en lecture seul mais pour le quel on mettre un lsitenser qui observe si la valeur change commé d'un seul octer
